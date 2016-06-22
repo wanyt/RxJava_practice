@@ -1,0 +1,1 @@
+This app is show the app list in your devices with RxJava. It shows kinds of usage of RxJava. you can import it into you Android Studio freely. And if you hava some question, please email me!
