@@ -19,11 +19,11 @@
         android:layout_height="match_parent"
         android:background="#D9D9D9"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
-        android:layout_weight="2.5"
+    <FrameLayout
+        android:id="@+id/fl_main_container"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:padding="10dp"/>
+        android:layout_weight="2.5"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </LinearLayout>

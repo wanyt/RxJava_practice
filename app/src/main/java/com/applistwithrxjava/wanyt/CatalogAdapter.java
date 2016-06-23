@@ -35,7 +35,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
     @Override
     public CatalogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = from.inflate(R.layout.item_catalog, parent, false);
-        return new CatalogViewHolder(view, itemClickListener);
+        return new CatalogViewHolder(view, itemClickListener, catalogList);
     }
 
     @Override
@@ -63,19 +63,26 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
        @BindView(R.id.tv_catalog)
        TextView tvCatalog;
        private ItemClickListener itemClickListener;
+        private ArrayList<CatalogBean> catalogList;
 
-       public CatalogViewHolder(View itemView, ItemClickListener itemClickListener) {
+       public CatalogViewHolder(View itemView, ItemClickListener itemClickListener,
+                                ArrayList<CatalogBean> catalogList) {
            super(itemView);
            ButterKnife.bind(this, itemView);
 
+           this.catalogList = catalogList;
            this.itemClickListener = itemClickListener;
            itemView.setOnClickListener(this);
        }
 
+        /**
+         * 设置item的点击回调
+         * @param view
+         */
         @Override
         public void onClick(View view) {
             if(itemClickListener != null){
-                itemClickListener.setOnItemClickListener(view, getAdapterPosition());
+                itemClickListener.setOnItemClickListener(view, getAdapterPosition(), catalogList);
             }
         }
     }

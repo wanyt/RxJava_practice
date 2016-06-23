@@ -10,5 +10,5 @@ import android.view.View;
  * Description:
  */
 public interface ItemClickListener {
-    public void setOnItemClickListener(View view, int position);
+    public void setOnItemClickListener(View view, int position, Object obj);
 }

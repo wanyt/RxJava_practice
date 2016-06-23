@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_fragment_base_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Observable.create()"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tv_fragment_base_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="方法描述"
+        android:textSize="15sp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/iv_fragment_base_bulletgraph"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        tools:src="@mipmap/pic_from"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_fragment_base_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="15dp"/>
+
+
+</LinearLayout>

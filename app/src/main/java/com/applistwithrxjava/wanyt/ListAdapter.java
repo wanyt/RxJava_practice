@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
-import com.applistwithrxjava.wanyt.listener.ItemLongClickListener;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     LayoutInflater layoutInflater;
     ArrayList<String> list;
     ItemClickListener itemClickListener;
-    ItemLongClickListener itemLongClickListener;
 
     public ListAdapter(Context context, ArrayList<String> item) {
         this.layoutInflater = LayoutInflater.from(context);
@@ -36,7 +34,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(layoutInflater.inflate(R.layout.item_list, parent, false),
-                itemClickListener, itemLongClickListener);
+                itemClickListener, list);
     }
 
     @Override
@@ -56,44 +54,28 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         this.itemClickListener = itemClickListener;
     }
 
-    public void setOnItemLongClickListener(ItemLongClickListener itemLongClickListener){
-        this.itemLongClickListener = itemLongClickListener;
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener{
+            implements View.OnClickListener{
 
         TextView textView;
         ItemClickListener itemClickListener;
-        ItemLongClickListener itemLongClickListener;
+        ArrayList<String> list;
 
         public ViewHolder(View itemView,
-                          ItemClickListener itemClickListener,
-                          ItemLongClickListener itemLongClickListener) {
+                          ItemClickListener itemClickListener, ArrayList<String> list) {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.item_text);
 
+            this.list = list;
             this.itemClickListener = itemClickListener;
-            this.itemLongClickListener = itemLongClickListener;
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if(itemClickListener != null){
-                itemClickListener.setOnItemClickListener(view, getAdapterPosition());
+                itemClickListener.setOnItemClickListener(view, getAdapterPosition(), list);
             }
         }
-
-        @Override
-        public boolean onLongClick(View view) {
-            if(itemLongClickListener != null){
-                itemLongClickListener.setOnItemLongClickListener(view, getAdapterPosition());
-            }
-            return true;
-        }
-
     }
-
 }
