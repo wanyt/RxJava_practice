@@ -1,7 +1,6 @@
 package com.applistwithrxjava.wanyt.recyclerdivider;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -9,8 +8,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-
-import com.applistwithrxjava.wanyt.R;
 
 /**
  * Created on 2016/6/22 17:27
@@ -21,14 +18,12 @@ import com.applistwithrxjava.wanyt.R;
  */
 public class GridDivider extends RecyclerView.ItemDecoration {
 
-    private static final int[] ATTRS = new int[] { R.attr.gridDivider };
+    private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
     private Drawable mDivider;
 
-    public GridDivider(Context context)
+    public GridDivider(Context context, int transparent)
     {
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
-        a.recycle();
+        mDivider = context.getResources().getDrawable(transparent);
     }
 
     @Override

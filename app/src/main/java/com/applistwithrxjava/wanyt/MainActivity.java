@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.applistwithrxjava.wanyt.bean.CatalogBean;
+import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.GridDivider;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
@@ -45,30 +47,38 @@ public class MainActivity extends AppCompatActivity{
         list.add("gegeda");
         list.add("heheda");
 
-        initCatalog(list);
+        ArrayList<CatalogBean> catalogList = DataCatalogList.getInstance().getCatalogList();
+
+        initCatalog(catalogList);
         initAppList(list);
     }
 
-    private void initCatalog(ArrayList<String> list) {
+    /**
+     * 方法目录布局
+     * @param catalogList
+     */
+    private void initCatalog(ArrayList<CatalogBean> catalogList) {
         recyclerView_catalog.setLayoutManager(new LinearLayoutManager(this));
         recyclerView_catalog.addItemDecoration(new LinearDivider(this, LinearLayoutManager.VERTICAL));
-        CatalogAdapter catalogAdapter = new CatalogAdapter(this, list);
+        CatalogAdapter catalogAdapter = new CatalogAdapter(this, catalogList);
         recyclerView_catalog.setAdapter(catalogAdapter);
         catalogAdapter.setOnItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClickListener(View view, int position) {
-                Log.v(tag, "catalog click:"+position);
+                Log.v(tag, "catalogList click:"+position);
             }
         });
     }
 
+    /**
+     * app 列表
+     * @param list
+     */
     private void initAppList(ArrayList<String> list) {
+
         recyclerView_list.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView_list.addItemDecoration(new GridDivider(this));
-//        recyclerView_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
+        recyclerView_list.addItemDecoration(new GridDivider(this, R.drawable.grid_divider));
         ListAdapter listAdapter = new ListAdapter(this, list);
-
         recyclerView_list.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener(new ItemClickListener() {
             @Override

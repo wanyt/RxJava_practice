@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 
 import java.util.ArrayList;
@@ -19,28 +20,29 @@ import butterknife.ButterKnife;
  * <p>
  * author wanyt
  * <p>
- * Description:
+ * Description:方法目录的适配器
  */
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
     LayoutInflater from;
-    ArrayList<String> catalog;
+    ArrayList<CatalogBean> catalogList;
 
-    public CatalogAdapter(Context context, ArrayList<String> catalog) {
+    public CatalogAdapter(Context context, ArrayList<CatalogBean> catalog) {
         from = LayoutInflater.from(context);
-        this.catalog = catalog;
+        this.catalogList = catalog;
     }
 
     @Override
     public CatalogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = from.inflate(R.layout.item_catalog, null, false);
+        View view = from.inflate(R.layout.item_catalog, parent, false);
         return new CatalogViewHolder(view, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(CatalogViewHolder holder, int position) {
-        if(catalog != null){
-            holder.tvCatalog.setText(catalog.get(position));
+        if(catalogList != null){
+            CatalogBean catalog = catalogList.get(position);
+            holder.tvCatalog.setText(catalog.method);
         }
     }
 
@@ -52,7 +54,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
 
     @Override
     public int getItemCount() {
-        return catalog == null ? 0 : catalog.size();
+        return catalogList == null ? 0 : catalogList.size();
     }
 
     class CatalogViewHolder extends RecyclerView.ViewHolder
