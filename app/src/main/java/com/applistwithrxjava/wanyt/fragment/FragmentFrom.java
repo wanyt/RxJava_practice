@@ -14,7 +14,7 @@ public class FragmentFrom extends BaseFragment {
 
     @Override
     protected void initView() {
-        tvMethod.setText(catalog.method);
+        tvMethod.setText(catalog.fullName);
         tvDesc.setText(catalog.describe);
 
     }

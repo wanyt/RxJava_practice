@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
+import com.applistwithrxjava.wanyt.fragment.BaseFragment;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
@@ -51,29 +52,38 @@ public class MainActivity extends AppCompatActivity{
         catalogAdapter.setOnItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClickListener(View view, int position, Object obj) {
-                setCatalogItemClick(position, (ArrayList<CatalogBean>) obj);
+                setCatalogItemClick((CatalogBean) obj);
             }
         });
     }
 
-    private void setCatalogItemClick(int position, ArrayList<CatalogBean> obj) {
+    /**
+     * 方法目录的点击事件
+     * @param item
+     */
+    private void setCatalogItemClick(CatalogBean item) {
 
-        ArrayList<CatalogBean> list = obj;
-        if(list == null){
-            throw new NullPointerException(tag + " --> 目录列表数据为空");
+        BaseFragment fragment = null;
+
+        switch (item.flag){
+            case DataCatalogList.FROM:
+                fragment = new FragmentFrom();
+                break;
         }
 
-        CatalogBean catalog = list.get(position);
+        if(fragment == null){
+            throw new NullPointerException("装载app list的fragment为空 " + tag);
+        }
 
-        FragmentFrom fragmentFrom = new FragmentFrom();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.CATALOG_PARAMS, catalog);
-        fragmentFrom.setArguments(bundle);
+        bundle.putSerializable(Constants.CATALOG_PARAMS, item);
+        fragment.setArguments(bundle);
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_main_container, fragmentFrom)
+                .replace(R.id.fl_main_container, fragment)
                 .commit();
+
     }
 
 //    /**

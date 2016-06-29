@@ -25,7 +25,7 @@ import butterknife.Unbinder;
  * <p>
  * Description:所有fragment的基类
  */
-abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private final String tag = ".fragment.BaseFragment";
 

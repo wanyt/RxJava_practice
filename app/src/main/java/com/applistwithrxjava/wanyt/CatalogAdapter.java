@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
  */
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
+    private final String tag = "com.applistwithrxjava.wanyt.CatalogAdapter";
+
     LayoutInflater from;
     ArrayList<CatalogBean> catalogList;
 
@@ -82,7 +84,12 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogV
         @Override
         public void onClick(View view) {
             if(itemClickListener != null){
-                itemClickListener.setOnItemClickListener(view, getAdapterPosition(), catalogList);
+                if(catalogList == null){
+                    throw new NullPointerException("点击的目录列表为空 " + tag);
+                }
+
+                CatalogBean curItem = catalogList.get(getAdapterPosition());
+                itemClickListener.setOnItemClickListener(view, getAdapterPosition(), curItem);
             }
         }
     }

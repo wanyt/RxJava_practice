@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class CatalogBean implements Serializable {
 
+    public String flag;
     public String method;         //方法名称
     public String describe;       //方法描述
     public Drawable bulletGraphs; //子弹图
