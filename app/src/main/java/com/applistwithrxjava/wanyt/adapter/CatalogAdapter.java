@@ -1,4 +1,4 @@
-package com.applistwithrxjava.wanyt;
+package com.applistwithrxjava.wanyt.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
  */
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder> {
 
-    private final String tag = "com.applistwithrxjava.wanyt.CatalogAdapter";
+    private final String tag = "com.applistwithrxjava.wanyt.adapter.CatalogAdapter";
 
     LayoutInflater from;
     ArrayList<CatalogBean> catalogList;

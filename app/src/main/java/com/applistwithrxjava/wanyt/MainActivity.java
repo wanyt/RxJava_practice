@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.applistwithrxjava.wanyt.adapter.CatalogAdapter;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
+import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private final String tag = ".wanyt.MainActivity";
 
@@ -38,10 +40,22 @@ public class MainActivity extends AppCompatActivity{
         ArrayList<CatalogBean> catalogList = DataCatalogList.getInstance().getCatalogList();
 
         initCatalog(catalogList);
+
+        initDefaultView();
+
+    }
+
+    /**
+     * 初始化默认显示
+     */
+    private void initDefaultView() {
+        FragmentDefault fragmentDefault = new FragmentDefault();
+        manageFragment(fragmentDefault);
     }
 
     /**
      * 方法目录布局
+     *
      * @param catalogList
      */
     private void initCatalog(ArrayList<CatalogBean> catalogList) {
@@ -52,26 +66,27 @@ public class MainActivity extends AppCompatActivity{
         catalogAdapter.setOnItemClickListener(new ItemClickListener() {
             @Override
             public void setOnItemClickListener(View view, int position, Object obj) {
-                setCatalogItemClick((CatalogBean) obj);
+                catalogItemClick((CatalogBean) obj);
             }
         });
     }
 
     /**
      * 方法目录的点击事件
+     *
      * @param item
      */
-    private void setCatalogItemClick(CatalogBean item) {
+    private void catalogItemClick(CatalogBean item) {
 
-        BaseFragment fragment = null;
+        BaseFragment fragment = new FragmentDefault();
 
-        switch (item.flag){
+        switch (item.flag) {
             case DataCatalogList.FROM:
                 fragment = new FragmentFrom();
                 break;
         }
 
-        if(fragment == null){
+        if (fragment == null) {
             throw new NullPointerException("装载app list的fragment为空 " + tag);
         }
 
@@ -79,29 +94,14 @@ public class MainActivity extends AppCompatActivity{
         bundle.putSerializable(Constants.CATALOG_PARAMS, item);
         fragment.setArguments(bundle);
 
+        manageFragment(fragment);
+    }
+
+    private void manageFragment(BaseFragment fragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_main_container, fragment)
                 .commit();
-
     }
-
-//    /**
-//     * app 列表
-//     * @param list
-//     */
-//    private void initAppList(ArrayList<String> list) {
-//
-//        recyclerView_list.setLayoutManager(new GridLayoutManager(this, 2));
-//        recyclerView_list.addItemDecoration(new GridDivider(this, R.drawable.grid_divider));
-//        ListAdapter listAdapter = new ListAdapter(this, list);
-//        recyclerView_list.setAdapter(listAdapter);
-//        listAdapter.setOnItemClickListener(new ItemClickListener() {
-//            @Override
-//            public void setOnItemClickListener(View view, int position) {
-//                Log.v(tag, "list click:"+position);
-//            }
-//        });
-//    }
 
 }
