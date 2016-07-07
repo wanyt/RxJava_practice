@@ -27,9 +27,9 @@ public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
     LayoutInflater layoutInflater;
     ArrayList<AppListBean> list;
 
-    public FromAdapter(Context context, ArrayList<AppListBean> item) {
+    public FromAdapter(Context context, ArrayList<AppListBean> list) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.list = item;
+        this.list = list;
     }
 
     public void addItem(int position, AppListBean app){
@@ -38,6 +38,7 @@ public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
         }
         list.add(position, app);
         notifyItemInserted(position);
+
     }
 
     @Override

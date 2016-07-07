@@ -41,4 +41,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     //Logger
     compile 'com.orhanobut:logger:1.15'
+    //glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

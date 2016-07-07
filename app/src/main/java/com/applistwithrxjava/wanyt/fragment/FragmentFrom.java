@@ -28,6 +28,7 @@ public class FragmentFrom extends BaseFragment {
     protected void initView() {
         tvMethod.setText(catalog.fullName);
         tvDesc.setText(catalog.describe);
+        ivBulletGraph.setBackgroundResource(R.mipmap.pic_from);
 
         list = new ArrayList<>();
         initList(list);
