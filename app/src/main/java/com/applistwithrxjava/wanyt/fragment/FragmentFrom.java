@@ -3,12 +3,14 @@ package com.applistwithrxjava.wanyt.fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.widget.Toast;
 
+import com.applistwithrxjava.wanyt.Constants;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
 import com.bumptech.glide.Glide;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscription;
 
 /**
  * Created on 2016/6/23 16:51
@@ -21,6 +23,7 @@ public class FragmentFrom extends BaseFragment {
 
     private final String tag = ".fragment.FragmentFrom";
     private final String imageUrl = "https://raw.githubusercontent.com/wiki/ReactiveX/RxJava/images/rx-operators/from.png";
+    private Subscription subscribe;
 
     @Override
     protected void initView() {
@@ -41,8 +44,7 @@ public class FragmentFrom extends BaseFragment {
 
     @Override
     protected void setListView() {
-
-        Observable.from(getAppList())
+        subscribe = Observable.from(getAppList())
                 .subscribe(new Observer<AppListBean>() {
                     @Override
                     public void onCompleted() {
@@ -56,14 +58,19 @@ public class FragmentFrom extends BaseFragment {
 
                     @Override
                     public void onNext(AppListBean appListBean) {
-                        listAdapter.addItem(0, appListBean);
+                        listAdapter.addItem(appListBean);
                     }
                 });
     }
 
     @Override
     protected void internalMessage(String flag, Object event) {
-
+        switch (flag){
+            case Constants.EVENT_OBSERVER_UNREGISTER://保证一旦离开当前界面Observable就会被注销订阅，节省资源
+                if((boolean)event)
+                    subscribe.unsubscribe();
+                break;
+        }
     }
 
 }

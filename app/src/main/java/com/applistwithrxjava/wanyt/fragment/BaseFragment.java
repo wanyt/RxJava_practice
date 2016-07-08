@@ -116,11 +116,11 @@ public abstract class BaseFragment extends Fragment {
                 });
     }
 
-    protected abstract void internalMessage(String flag, Object event);
-
     protected abstract void initView();
 
     protected abstract void setListView();
+
+    protected abstract void internalMessage(String flag, Object event);
 
     /**
      * 获取应用列表的observable
@@ -149,7 +149,7 @@ public abstract class BaseFragment extends Fragment {
                         String name = applicationInfo.loadLabel(getActivity().getPackageManager()).toString();
                         Drawable drawable = applicationInfo.loadIcon(getActivity().getPackageManager());
                         AppListBean app = new AppListBean(name, drawable);
-                        Logger.d("name"+name);
+//                        Logger.d("name"+name);
                         subscriber.onNext(app);
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();

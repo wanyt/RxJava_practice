@@ -13,6 +13,7 @@ import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
 import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
+import com.applistwithrxjava.wanyt.fragment.FragmentFilter;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case DataCatalogList.INTERVAL:
                 fragment = new FragmentInterval();
+                break;
+            case DataCatalogList.FILTER:
+                fragment = new FragmentFilter();
                 break;
         }
 

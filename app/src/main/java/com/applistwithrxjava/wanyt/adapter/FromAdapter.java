@@ -34,10 +34,9 @@ public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
 
     /**
      * 这中添加item的方式效率低下
-     * @param position
      * @param app
      */
-    public void addItem(int position, AppListBean app){
+    public void addItem(AppListBean app){
         list.add(app);
         notifyDataSetChanged();
     }

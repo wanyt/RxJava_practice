@@ -10,7 +10,7 @@ import com.applistwithrxjava.wanyt.R;
  * <p/>
  * author wanyt
  * <p/>
- * Description:
+ * Description:默认显示的布局
  */
 public class FragmentDefault extends BaseFragment {
 

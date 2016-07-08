@@ -40,34 +40,36 @@ public class FragmentInterval extends BaseFragment {
 
     @Override
     protected void setListView() {
-        subscribe = Observable.interval(2, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.computation())//加不加这一行都没有差别，主要是看起来方便知道interval发生的线程
-                .observeOn(AndroidSchedulers.mainThread())//AndroidScheduler在RxAndroid包中，可以把这一行注释掉，观察一下现象
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onCompleted() {
+        subscribe =
+                Observable.interval(2, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.computation())//加不加这一行都没有差别，主要是看起来方便知道interval发生的线程
+                    .observeOn(AndroidSchedulers.mainThread())//AndroidScheduler在RxAndroid包中，可以把这一行注释掉，观察一下现象
+                    .subscribe(new Observer<Long>() {
+                        @Override
+                        public void onCompleted() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(Long aLong) {
-                        Logger.d(aLong);
-                        tvText.setText(aLong + "");
-                    }
-                });
+                        @Override
+                        public void onNext(Long aLong) {
+                            Logger.d(aLong);
+                            tvText.setText(aLong + "");
+                        }
+                    });
     }
 
     @Override
     protected void internalMessage(String flag, Object event) {
-        if(flag.equals(Constants.EVENT_OBSERVER_UNREGISTER)){
-            if((boolean)event){
-                subscribe.unsubscribe();
-            }
+        switch (flag){
+            case Constants.EVENT_OBSERVER_UNREGISTER://保证一旦离开当前界面Observable就会被注销订阅，节省资源
+                if((boolean)event)
+                    subscribe.unsubscribe();
+                break;
         }
     }
 
