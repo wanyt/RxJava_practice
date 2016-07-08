@@ -3,13 +3,9 @@ package com.applistwithrxjava.wanyt.fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.widget.Toast;
 
-import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.applistwithrxjava.wanyt.recyclerdivider.GridDivider;
-import com.orhanobut.logger.Logger;
-
-import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 
 import rx.Observable;
 import rx.Observer;
@@ -19,39 +15,38 @@ import rx.Observer;
  * <p>
  * author wanyt
  * <p>
- * Description:
+ * Description:在这个例子中，把获取到的应用列表中的元素一个一个的发射出去
  */
 public class FragmentFrom extends BaseFragment {
 
     private final String tag = ".fragment.FragmentFrom";
+    private final String imageUrl = "https://raw.githubusercontent.com/wiki/ReactiveX/RxJava/images/rx-operators/from.png";
+
     @Override
     protected void initView() {
-        tvMethod.setText(catalog.fullName);
-        tvDesc.setText(catalog.describe);
-        ivBulletGraph.setBackgroundResource(R.mipmap.pic_from);
+        Glide.with(FragmentFrom.this)
+                .load(imageUrl)
+                .into(ivBulletGraph);
 
-        list = new ArrayList<>();
-        initList(list);
+        initList();
     }
 
+    private FromAdapter listAdapter;
 
-    private FromAdapter adapter;
-    private ArrayList<AppListBean> list;
-
-    private void initList(ArrayList<AppListBean> list) {
+    private void initList() {
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rvList.addItemDecoration(new GridDivider(getActivity(), R.drawable.grid_divider));
-        FromAdapter listAdapter = new FromAdapter(getActivity(), list);
+        listAdapter = new FromAdapter(getActivity());
         rvList.setAdapter(listAdapter);
     }
 
     @Override
     protected void setListView() {
+
         Observable.from(getAppList())
                 .subscribe(new Observer<AppListBean>() {
                     @Override
                     public void onCompleted() {
-                        Toast.makeText(getActivity(), "onCompleted()", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "From Completed", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -61,12 +56,14 @@ public class FragmentFrom extends BaseFragment {
 
                     @Override
                     public void onNext(AppListBean appListBean) {
-                        Logger.d(list.size());
-                        list.add(appListBean);
-//                        adapter.addItem(list.size() - 1, appListBean);
+                        listAdapter.addItem(0, appListBean);
                     }
                 });
     }
 
+    @Override
+    protected void internalMessage(String flag, Object event) {
+
+    }
 
 }

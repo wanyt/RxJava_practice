@@ -14,6 +14,8 @@ import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
 import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
+import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
+import com.applistwithrxjava.wanyt.fragment.FragmentJust;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
 
@@ -38,11 +40,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         ArrayList<CatalogBean> catalogList = DataCatalogList.getInstance().getCatalogList();
-
         initCatalog(catalogList);
-
         initDefaultView();
-
     }
 
     /**
@@ -84,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
             case DataCatalogList.FROM:
                 fragment = new FragmentFrom();
                 break;
+            case DataCatalogList.JUST:
+                fragment = new FragmentJust();
+                break;
+            case DataCatalogList.INTERVAL:
+                fragment = new FragmentInterval();
+                break;
         }
 
         if (fragment == null) {
@@ -95,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
 
         manageFragment(fragment);
+        RxBus.getInstance().post(new BusEventModel(Constants.EVENT_OBSERVER_UNREGISTER, true));
     }
 
     private void manageFragment(BaseFragment fragment) {

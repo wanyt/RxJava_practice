@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.applistwithrxjava.wanyt.R;
@@ -25,20 +26,20 @@ import butterknife.ButterKnife;
 public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
 
     LayoutInflater layoutInflater;
-    ArrayList<AppListBean> list;
+    ArrayList<AppListBean> list = new ArrayList<>();
 
-    public FromAdapter(Context context, ArrayList<AppListBean> list) {
+    public FromAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.list = list;
     }
 
+    /**
+     * 这中添加item的方式效率低下
+     * @param position
+     * @param app
+     */
     public void addItem(int position, AppListBean app){
-        if(position < 0){
-            position = 0;
-        }
-        list.add(position, app);
-        notifyItemInserted(position);
-
+        list.add(app);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -49,7 +50,9 @@ public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvItem.setText(list.get(position).name);
+        AppListBean app = list.get(position);
+        holder.tvItem.setText(app.name);
+        holder.ivIcon.setImageDrawable(app.drawable);
     }
 
     @Override
@@ -59,8 +62,10 @@ public class FromAdapter extends RecyclerView.Adapter<FromAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_item_from)
+        @BindView(R.id.tv_item_name)
         TextView tvItem;
+        @BindView(R.id.iv_item_icon)
+        ImageView ivIcon;
 
         public ViewHolder(View itemView) {
             super(itemView);

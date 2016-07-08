@@ -17,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.applistwithrxjava.wanyt.BusEventModel;
 import com.applistwithrxjava.wanyt.Constants;
 import com.applistwithrxjava.wanyt.R;
+import com.applistwithrxjava.wanyt.RxBus;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.orhanobut.logger.Logger;
@@ -30,7 +32,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Created on 2016/6/23 16:50
@@ -56,19 +60,31 @@ public abstract class BaseFragment extends Fragment {
     ImageView ivBulletGraph;
     @BindView(R.id.rv_fragment_base_list)
     RecyclerView rvList;
+    @BindView(R.id.tv_fragment_base_text)
+    TextView tvText;
+    private Subscription subscription;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //获取传过来的方法对象
+        Bundle arguments = getArguments();
+        if(arguments != null){
+            catalog = (CatalogBean) arguments.getSerializable(Constants.CATALOG_PARAMS);
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        Bundle arguments = getArguments();
-        if(arguments != null){
-            catalog = (CatalogBean) arguments.getSerializable(Constants.CATALOG_PARAMS);
-        }
-
         View view = inflater.inflate(R.layout.fragment_base, container, false);
         bind = ButterKnife.bind(this, view);
+
+        if(catalog != null){
+            tvMethod.setText(catalog.fullName);
+            tvDesc.setText(catalog.describe);
+        }
         return view;
     }
 
@@ -77,14 +93,39 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         setListView();
+        getInternalMessage();
     }
+
+    private void getInternalMessage() {
+        subscription = RxBus.getInstance().event(BusEventModel.class)
+                .subscribe(new Observer<BusEventModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BusEventModel eventModel) {
+                        internalMessage(eventModel.flag, eventModel.t);
+                    }
+                });
+    }
+
+    protected abstract void internalMessage(String flag, Object event);
 
     protected abstract void initView();
 
     protected abstract void setListView();
 
-
-
+    /**
+     * 获取应用列表的observable
+     * @return
+     */
     protected Observable<AppListBean> getAppObservable(){
 
         return Observable.create(new Observable.OnSubscribe<AppListBean>() {
@@ -121,6 +162,10 @@ public abstract class BaseFragment extends Fragment {
         });
     }
 
+    /**
+     * 获取应用列表的集合
+     * @return
+     */
     protected List<AppListBean> getAppList(){
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -151,5 +196,10 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         bind.unbind();
+        //这个方法名称起的真蛋疼，true表示没有订阅，反之表示订阅
+        if(!subscription.isUnsubscribed()){
+            subscription.unsubscribe();
+        }
     }
+
 }

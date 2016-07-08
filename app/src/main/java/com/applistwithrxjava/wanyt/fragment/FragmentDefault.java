@@ -14,7 +14,6 @@ import com.applistwithrxjava.wanyt.R;
  */
 public class FragmentDefault extends BaseFragment {
 
-
     @Override
     protected void initView() {
         llRoot.removeAllViews();
@@ -26,6 +25,11 @@ public class FragmentDefault extends BaseFragment {
 
     @Override
     protected void setListView() {
+
+    }
+
+    @Override
+    protected void internalMessage(String flag, Object event) {
 
     }
 }

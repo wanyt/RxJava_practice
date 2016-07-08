@@ -10,5 +10,5 @@ package com.applistwithrxjava.wanyt;
 public class Constants {
 
     public static final String CATALOG_PARAMS = "CATALOG_PARAMS";
-
+    public static final String EVENT_OBSERVER_UNREGISTER = "EVENT_OBSERVER_UNREGISTER";
 }

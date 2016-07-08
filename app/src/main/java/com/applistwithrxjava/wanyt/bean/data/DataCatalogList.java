@@ -96,7 +96,7 @@ public class DataCatalogList {
         defer.flag = DEFER;
         defer.method = "defer()";
         defer.fullName = "Observable.defer();";
-        from.describe = "数据将延迟发射，直到被订阅才会发射数据";
+        defer.describe = "数据将延迟发射，直到被订阅才会发射数据";
 
         catalogList.add(from);
         catalogList.add(just);
