@@ -13,6 +13,8 @@ import java.util.List;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created on 2016/7/8 11:31
@@ -53,6 +55,8 @@ public class FragmentJust extends BaseFragment{
                     appList.get(1), appList.get(2), appList.get(3))
 //                    .repeat()//无限次数地重复发射数据源,谨慎使用
                     .repeat(2)//发射 参数次 数据源
+                    .subscribeOn(Schedulers.newThread())//线程切换，性能优化
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<AppListBean>() {
                         @Override
                         public void onCompleted() {

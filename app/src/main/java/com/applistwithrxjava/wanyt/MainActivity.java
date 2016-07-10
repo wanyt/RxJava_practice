@@ -13,10 +13,13 @@ import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
 import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
+import com.applistwithrxjava.wanyt.fragment.FragmentDistinct;
 import com.applistwithrxjava.wanyt.fragment.FragmentFilter;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
+import com.applistwithrxjava.wanyt.fragment.FragmentSkip;
+import com.applistwithrxjava.wanyt.fragment.FragmentTake;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
 
@@ -92,6 +95,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case DataCatalogList.FILTER:
                 fragment = new FragmentFilter();
+                break;
+            case DataCatalogList.TAKE:
+                fragment = new FragmentTake();
+                break;
+            case DataCatalogList.DISTINCT:
+                fragment = new FragmentDistinct();
+                break;
+            case DataCatalogList.SKIP:
+                fragment = new FragmentSkip();
                 break;
         }
 

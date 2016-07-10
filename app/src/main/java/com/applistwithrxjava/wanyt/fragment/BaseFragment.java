@@ -23,7 +23,6 @@ import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.RxBus;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

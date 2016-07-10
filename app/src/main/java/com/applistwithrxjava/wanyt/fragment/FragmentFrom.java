@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created on 2016/6/23 16:51
@@ -45,6 +47,8 @@ public class FragmentFrom extends BaseFragment {
     @Override
     protected void setListView() {
         subscribe = Observable.from(getAppList())
+                .subscribeOn(Schedulers.io())//线程切换，性能优化
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AppListBean>() {
                     @Override
                     public void onCompleted() {

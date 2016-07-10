@@ -19,6 +19,9 @@ public class DataCatalogList {
     public static final String JUST = "just";
     public static final String INTERVAL = "interval";
     public static final String FILTER = "filter";
+    public static final String TAKE = "take";
+    public static final String DISTINCT = "distinct";
+    public static final String SKIP = "skip";
 
     private static DataCatalogList instance;
 
@@ -57,10 +60,31 @@ public class DataCatalogList {
         filter.fullName = "Observable.filter()";
         filter.describe = "该方法返回一个布尔值，只有符合条件的数据才会被发射出去";
 
+        CatalogBean take = new CatalogBean();
+        take.flag = TAKE;
+        take.method = "take()";
+        take.fullName = "Observable.take(int count)";
+        take.describe = "发射该数据序列的前count个数据";
+
+        CatalogBean distinct = new CatalogBean();
+        distinct.flag = DISTINCT;
+        distinct.method = "distinct()";
+        distinct.fullName = "Observable.distinct()";
+        distinct.describe = "distinct()作用于整个序列，可以对序列中的数据进行去重操作";
+
+        CatalogBean skip = new CatalogBean();
+        skip.flag = SKIP;
+        skip.method = "skip()";
+        skip.fullName = "Observable.skip(int count)";
+        skip.describe = "跳过数据序列的前count个数据然后发射剩余的数据";
+
         catalogList.add(from);
         catalogList.add(just);
         catalogList.add(interval);
         catalogList.add(filter);
+        catalogList.add(take);
+        catalogList.add(distinct);
+        catalogList.add(skip);
 
         return catalogList;
     }
