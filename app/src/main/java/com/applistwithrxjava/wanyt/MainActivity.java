@@ -12,14 +12,19 @@ import com.applistwithrxjava.wanyt.adapter.CatalogAdapter;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
+import com.applistwithrxjava.wanyt.fragment.FragmentBuffer;
 import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
 import com.applistwithrxjava.wanyt.fragment.FragmentDistinct;
 import com.applistwithrxjava.wanyt.fragment.FragmentFilter;
+import com.applistwithrxjava.wanyt.fragment.FragmentFlatmap;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
+import com.applistwithrxjava.wanyt.fragment.FragmentMap;
+import com.applistwithrxjava.wanyt.fragment.FragmentMerge;
 import com.applistwithrxjava.wanyt.fragment.FragmentSkip;
 import com.applistwithrxjava.wanyt.fragment.FragmentTake;
+import com.applistwithrxjava.wanyt.fragment.FragmentZip;
 import com.applistwithrxjava.wanyt.listener.ItemClickListener;
 import com.applistwithrxjava.wanyt.recyclerdivider.LinearDivider;
 
@@ -28,6 +33,11 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 每个方法的演示放在了Fragment中，
+ * 所有的Fragment继承BaseFragment，
+ * 已安装的应用列表的获取和Fragment的一些数据的设置放在了BaseFragment中
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String tag = ".wanyt.MainActivity";
@@ -105,6 +115,22 @@ public class MainActivity extends AppCompatActivity {
             case DataCatalogList.SKIP:
                 fragment = new FragmentSkip();
                 break;
+            case DataCatalogList.MAP:
+                fragment = new FragmentMap();
+                break;
+            case DataCatalogList.FLATMAP:
+                fragment = new FragmentFlatmap();
+                break;
+            case DataCatalogList.BUFFER:
+                fragment = new FragmentBuffer();
+                break;
+            case DataCatalogList.MERGE:
+                fragment = new FragmentMerge();
+                break;
+            case DataCatalogList.ZIP:
+                fragment = new FragmentZip();
+                break;
+
         }
 
         if (fragment == null) {
@@ -116,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
 
         manageFragment(fragment);
+        //当切换Fragment的时候，发送消息通知Fragment做一些释放操作
         RxBus.getInstance().post(new BusEventModel(Constants.EVENT_OBSERVER_UNREGISTER, true));
     }
 

@@ -22,6 +22,11 @@ public class DataCatalogList {
     public static final String TAKE = "take";
     public static final String DISTINCT = "distinct";
     public static final String SKIP = "skip";
+    public static final String MAP = "map";
+    public static final String FLATMAP = "flatmap";
+    public static final String BUFFER = "buffer";
+    public static final String MERGE = "merge";
+    public static final String ZIP = "zip";
 
     private static DataCatalogList instance;
 
@@ -78,6 +83,36 @@ public class DataCatalogList {
         skip.fullName = "Observable.skip(int count)";
         skip.describe = "跳过数据序列的前count个数据然后发射剩余的数据";
 
+        CatalogBean map = new CatalogBean();
+        map.flag = MAP;
+        map.method = "map()";
+        map.fullName = "Observable.map(new Func1())";
+        map.describe = "接收一个Func对象，在这个对象中对序列中的数据进行操作，把操作后的数据返回给观测者";
+
+        CatalogBean flatMap = new CatalogBean();
+        flatMap.flag = FLATMAP;
+        flatMap.method = "flatMap()";
+        flatMap.fullName = "Observable.flatMap(new Func1())";
+        flatMap.describe = "后续添加...";
+
+        CatalogBean buffer = new CatalogBean();
+        buffer.flag = BUFFER;
+        buffer.method = "buffer()";
+        buffer.fullName = "Observable.buffer(int count)";
+        buffer.describe = "后续添加...";
+
+        CatalogBean merge = new CatalogBean();
+        merge.flag = MERGE;
+        merge.method = "merge()";
+        merge.fullName = "Observable.merge(Observable, Observable)";
+        merge.describe = "合并多个Observable，最多合并九个Observable";
+
+        CatalogBean zip = new CatalogBean();
+        zip.flag = ZIP;
+        zip.method = "zip()";
+        zip.fullName = "Observable.zip(Observable, Observable)";
+        zip.describe = "合并可观测数据序列的数据项";
+
         catalogList.add(from);
         catalogList.add(just);
         catalogList.add(interval);
@@ -85,6 +120,11 @@ public class DataCatalogList {
         catalogList.add(take);
         catalogList.add(distinct);
         catalogList.add(skip);
+        catalogList.add(map);
+        catalogList.add(merge);
+        catalogList.add(zip);
+        catalogList.add(flatMap);
+        catalogList.add(buffer);
 
         return catalogList;
     }

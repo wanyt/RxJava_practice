@@ -1,21 +1,21 @@
 package com.applistwithrxjava.wanyt.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.widget.Toast;
 
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
 
+import rx.Observable;
 import rx.Observer;
 
 /**
- * Created on 2016/7/10 17:24
+ * Created on 2016/7/13 14:18
  * <p>
  * author wanyt
  * <p>
- * Description:skip(int count)以及skipLast(int count)的使用
+ * Description:merge()的
  */
-public class FragmentSkip extends BaseFragment {
+public class FragmentMerge extends BaseFragment {
 
     FromAdapter adapter;
     @Override
@@ -27,14 +27,16 @@ public class FragmentSkip extends BaseFragment {
 
     @Override
     protected void setListView() {
-        getAppObservable()
-                .take(10)//获取数据序列的前十个元素，看起来比较清晰
-                .skip(3)//跳过前十个元素的前三个数据
-//                .skipLast(3)//跳过前十个元素的最后三个
+        Observable<AppListBean> observable_1 = getAppObservable().take(9);
+        Observable<AppListBean> observable_2 = getAppObservable().take(9);
+
+        Observable
+                .merge(observable_1, observable_2)//合并多个Observable,在合并过程中如果有异常发生会立即出发onError(),并停止
+//                .mergeDelayError(observable_1, observable_2)//合并多个Observable,在合并过程中如果有异常发生，会继续进行合并，当合并完成之后触发onError()
                 .subscribe(new Observer<AppListBean>() {
                     @Override
                     public void onCompleted() {
-                        Toast.makeText(getActivity(), "skip() completed", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
