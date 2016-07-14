@@ -27,6 +27,8 @@ public class DataCatalogList {
     public static final String BUFFER = "buffer";
     public static final String MERGE = "merge";
     public static final String ZIP = "zip";
+    public static final String JOIN = "join";
+    public static final String SCAN = "scan";
 
     private static DataCatalogList instance;
 
@@ -113,6 +115,18 @@ public class DataCatalogList {
         zip.fullName = "Observable.zip(Observable, Observable)";
         zip.describe = "合并可观测数据序列的数据项";
 
+        CatalogBean join = new CatalogBean();
+        join.flag = JOIN;
+        join.method = "join()";
+        join.fullName = "Observable.join()";
+        join.describe = "  ";
+
+        CatalogBean scan = new CatalogBean();
+        scan.flag = SCAN;
+        scan.method = "scan()";
+        scan.fullName = "Observable.join()";
+        scan.describe = "  ";
+
         catalogList.add(from);
         catalogList.add(just);
         catalogList.add(interval);
@@ -123,8 +137,9 @@ public class DataCatalogList {
         catalogList.add(map);
         catalogList.add(merge);
         catalogList.add(zip);
-        catalogList.add(flatMap);
-        catalogList.add(buffer);
+//        catalogList.add(join);
+//        catalogList.add(flatMap);
+//        catalogList.add(buffer);
 
         return catalogList;
     }

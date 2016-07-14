@@ -18,6 +18,12 @@ import rx.functions.Func1;
  * author wanyt
  * <p>
  * Description:
+ *              all();用于检查发射的数据是否都满足某一条件，如果满足返回一个发射true的observable，只要有一个不满足就返回一个发射false的observable
+ *              exits();如果发射的数据中有一个满足条件就返回发射true的observable，否则返回发射false的observable
+ *              contain();检查数据序列中是否有相同的数据，如果有返回发射true的observable，否则返回发射false的observable
+ *              defaultIfEmpty();如果发射的数据序列中没有发射任何数据，会强制返回一个默认的值
+ *              elementAt();发射数据序列中指定位置的数据
+ *              sequenceEqual();用来比较两个同类型等长的数据序列中的元素是否相同，如果都相同就返回发射true的observable，否则返回发射false的observable
  */
 public class FragmentFilter extends BaseFragment {
 

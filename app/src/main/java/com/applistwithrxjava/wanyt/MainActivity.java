@@ -12,11 +12,9 @@ import com.applistwithrxjava.wanyt.adapter.CatalogAdapter;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
 import com.applistwithrxjava.wanyt.bean.data.DataCatalogList;
 import com.applistwithrxjava.wanyt.fragment.BaseFragment;
-import com.applistwithrxjava.wanyt.fragment.FragmentBuffer;
 import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
 import com.applistwithrxjava.wanyt.fragment.FragmentDistinct;
 import com.applistwithrxjava.wanyt.fragment.FragmentFilter;
-import com.applistwithrxjava.wanyt.fragment.FragmentFlatmap;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
 import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
@@ -118,18 +116,21 @@ public class MainActivity extends AppCompatActivity {
             case DataCatalogList.MAP:
                 fragment = new FragmentMap();
                 break;
-            case DataCatalogList.FLATMAP:
-                fragment = new FragmentFlatmap();
-                break;
-            case DataCatalogList.BUFFER:
-                fragment = new FragmentBuffer();
-                break;
             case DataCatalogList.MERGE:
                 fragment = new FragmentMerge();
                 break;
             case DataCatalogList.ZIP:
                 fragment = new FragmentZip();
                 break;
+//            case DataCatalogList.FLATMAP:
+//                fragment = new FragmentFlatmap();
+//                break;
+//            case DataCatalogList.BUFFER:
+//                fragment = new FragmentBuffer();
+//                break;
+//            case DataCatalogList.JOIN:
+//                fragment = new FragmentJoin();
+//                break;
 
         }
 

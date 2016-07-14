@@ -95,6 +95,22 @@ public abstract class BaseFragment extends Fragment {
         getInternalMessage();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadImage();
+    }
+
+    protected void loadImage() {
+
+//        Glide.with(
+
+
+
+
+    }
+
+
     private void getInternalMessage() {
         subscription = RxBus.getInstance().event(BusEventModel.class)
                 .subscribe(new Observer<BusEventModel>() {
