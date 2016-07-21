@@ -2,19 +2,23 @@ package com.applistwithrxjava.wanyt.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 
+import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
+import com.bumptech.glide.Glide;
 
 import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func2;
+import rx.schedulers.Schedulers;
 
 /**
  * Created on 2016/7/13 14:58
  * <p>
  * author wanyt
  * <p>
- * Description:zip()的使用，个人感觉比较实用
+ * Description:zip()的使用，本例中对两个Observable进行操作，并对应用名称进行合并。
  */
 public class FragmentZip extends BaseFragment {
 
@@ -24,6 +28,10 @@ public class FragmentZip extends BaseFragment {
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
+
+        Glide.with(this)
+                .load(R.mipmap.pic_zip)
+                .into(ivBulletGraph);
     }
 
     @Override
@@ -41,6 +49,8 @@ public class FragmentZip extends BaseFragment {
                         return appListBean;
                     }
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AppListBean>() {
                     @Override
                     public void onCompleted() {

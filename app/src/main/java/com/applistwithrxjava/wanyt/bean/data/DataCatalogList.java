@@ -28,7 +28,7 @@ public class DataCatalogList {
     public static final String MERGE = "merge";
     public static final String ZIP = "zip";
     public static final String JOIN = "join";
-    public static final String SCAN = "scan";
+    public static final String REDUCE = "reduce";
 
     private static DataCatalogList instance;
 
@@ -113,7 +113,7 @@ public class DataCatalogList {
         zip.flag = ZIP;
         zip.method = "zip()";
         zip.fullName = "Observable.zip(Observable, Observable)";
-        zip.describe = "合并可观测数据序列的数据项";
+        zip.describe = "对多个Observable的单个数据项进行合并，最多可以合并9个Observable。";
 
         CatalogBean join = new CatalogBean();
         join.flag = JOIN;
@@ -121,11 +121,11 @@ public class DataCatalogList {
         join.fullName = "Observable.join()";
         join.describe = "  ";
 
-        CatalogBean scan = new CatalogBean();
-        scan.flag = SCAN;
-        scan.method = "scan()";
-        scan.fullName = "Observable.join()";
-        scan.describe = "  ";
+        CatalogBean reduce = new CatalogBean();
+        reduce.flag = REDUCE;
+        reduce.method = "reduce()";
+        reduce.fullName = "reduce(Func2<T, T, T> accumulator)";
+        reduce.describe = "对发射的数据序列进行累加变换，第一个数据和第二个数据累计的结果和第三个数据累计，直到数据序列发射完成，它返回一个包含最后的累加结果的Observable。（简而言之，可以对数据进行累加操作）";
 
         catalogList.add(from);
         catalogList.add(just);
@@ -137,6 +137,7 @@ public class DataCatalogList {
         catalogList.add(map);
         catalogList.add(merge);
         catalogList.add(zip);
+        catalogList.add(reduce);
 //        catalogList.add(join);
 //        catalogList.add(flatMap);
 //        catalogList.add(buffer);

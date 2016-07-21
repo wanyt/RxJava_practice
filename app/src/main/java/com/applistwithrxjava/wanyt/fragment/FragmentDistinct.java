@@ -1,12 +1,10 @@
 package com.applistwithrxjava.wanyt.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.view.View;
 import android.widget.Toast;
 
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.bumptech.glide.Glide;
 
 import rx.Observable;
 import rx.Observer;
@@ -31,17 +29,6 @@ public class FragmentDistinct extends BaseFragment {
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
 
-        Glide.with(FragmentDistinct.this)
-                .resumeRequests();
-
-        tvMethod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Glide.with(FragmentDistinct.this)
-                        .load("https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/skip.t.png")
-                        .into(ivBulletGraph);
-            }
-        });
     }
 
     @Override

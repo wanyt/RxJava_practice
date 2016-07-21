@@ -20,6 +20,7 @@ import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
 import com.applistwithrxjava.wanyt.fragment.FragmentMap;
 import com.applistwithrxjava.wanyt.fragment.FragmentMerge;
+import com.applistwithrxjava.wanyt.fragment.FragmentReduce;
 import com.applistwithrxjava.wanyt.fragment.FragmentSkip;
 import com.applistwithrxjava.wanyt.fragment.FragmentTake;
 import com.applistwithrxjava.wanyt.fragment.FragmentZip;
@@ -122,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
             case DataCatalogList.ZIP:
                 fragment = new FragmentZip();
                 break;
-//            case DataCatalogList.FLATMAP:
-//                fragment = new FragmentFlatmap();
-//                break;
+            case DataCatalogList.REDUCE:
+                fragment = new FragmentReduce();
+                break;
 //            case DataCatalogList.BUFFER:
 //                fragment = new FragmentBuffer();
 //                break;

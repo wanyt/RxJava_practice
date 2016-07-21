@@ -24,13 +24,14 @@ import rx.schedulers.Schedulers;
 public class FragmentFrom extends BaseFragment {
 
     private final String tag = ".fragment.FragmentFrom";
-    private final String imageUrl = "https://raw.githubusercontent.com/wiki/ReactiveX/RxJava/images/rx-operators/from.png";
+    private final String imageUrl = "http://ubmcmm.baidustatic.com/media/v1/0f0000oNkA-IJce-KP9x1s.jpg";
     private Subscription subscribe;
 
     @Override
     protected void initView() {
+        ivBulletGraph.measure(0,0);
         Glide.with(FragmentFrom.this)
-                .load(imageUrl)
+                .load(imageUrl).fitCenter()
                 .into(ivBulletGraph);
 
         initList();
@@ -65,6 +66,12 @@ public class FragmentFrom extends BaseFragment {
                         listAdapter.addItem(appListBean);
                     }
                 });
+    }
+
+    @Override
+    protected void loadImage() {
+        super.loadImage();
+        Glide.with(FragmentFrom.this).resumeRequests();
     }
 
     @Override

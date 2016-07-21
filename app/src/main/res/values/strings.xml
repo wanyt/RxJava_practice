@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AppListWithRxJava</string>
-    <string name="fragment_default_contact">  愚才疏学浅，对某些方法的解释肯定有不到位的地方，如果您发现了请及时联系我，我尽快予以更正。这是我的email:me_wanyt@163.com</string>
+    <string name="fragment_default_contact">  某些方法的解释可能有不到位的地方，如果你发现了请及时联系我，我尽快予以更正。这是我的email:me_wanyt@163.com</string>
     <string name="fragment_default_intro">  应用演示了RxJava里面常用方法的使用，点击左侧方法标签会看到当前方法的方法名称，方法描述以及子弹图；并用当前设备已安装的应用列表作为示例，演示当前方法的使用。在类的注释里有详细的描述</string>
 </resources>
