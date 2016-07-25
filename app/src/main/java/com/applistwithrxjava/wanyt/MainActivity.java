@@ -16,6 +16,7 @@ import com.applistwithrxjava.wanyt.fragment.FragmentDefault;
 import com.applistwithrxjava.wanyt.fragment.FragmentDistinct;
 import com.applistwithrxjava.wanyt.fragment.FragmentFilter;
 import com.applistwithrxjava.wanyt.fragment.FragmentFrom;
+import com.applistwithrxjava.wanyt.fragment.FragmentGroupby;
 import com.applistwithrxjava.wanyt.fragment.FragmentInterval;
 import com.applistwithrxjava.wanyt.fragment.FragmentJust;
 import com.applistwithrxjava.wanyt.fragment.FragmentMap;
@@ -62,7 +63,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initDefaultView() {
         FragmentDefault fragmentDefault = new FragmentDefault();
-        manageFragment(fragmentDefault);
+        CatalogBean item = new CatalogBean();
+        item.flag = " ";
+        item.method = " ";
+        item.fullName = " ";
+        item.describe = " ";
+        item.bulletGraphs = 0;
+        manageFragment(fragmentDefault, item);
     }
 
     /**
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void catalogItemClick(CatalogBean item) {
 
-        BaseFragment fragment = new FragmentDefault();
+        BaseFragment fragment = null;
 
         switch (item.flag) {
             case DataCatalogList.FROM:
@@ -126,12 +133,17 @@ public class MainActivity extends AppCompatActivity {
             case DataCatalogList.REDUCE:
                 fragment = new FragmentReduce();
                 break;
-//            case DataCatalogList.BUFFER:
-//                fragment = new FragmentBuffer();
-//                break;
-//            case DataCatalogList.JOIN:
-//                fragment = new FragmentJoin();
-//                break;
+            case DataCatalogList.GROUPBY:
+                fragment = new FragmentGroupby();
+                break;
+            default:
+                fragment = new FragmentDefault();
+                item.flag = " ";
+                item.method = " ";
+                item.fullName = " ";
+                item.describe = " ";
+                item.bulletGraphs = 0;
+                break;
 
         }
 
@@ -139,16 +151,17 @@ public class MainActivity extends AppCompatActivity {
             throw new NullPointerException("装载app list的fragment为空 " + tag);
         }
 
+        manageFragment(fragment, item);
+    }
+
+    private void manageFragment(BaseFragment fragment, CatalogBean item) {
+        //当切换Fragment的时候，发送消息通知Fragment做一些释放操作
+        RxBus.getInstance().post(new BusEventModel(Constants.EVENT_OBSERVER_UNREGISTER, true));
+
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.CATALOG_PARAMS, item);
         fragment.setArguments(bundle);
 
-        manageFragment(fragment);
-        //当切换Fragment的时候，发送消息通知Fragment做一些释放操作
-        RxBus.getInstance().post(new BusEventModel(Constants.EVENT_OBSERVER_UNREGISTER, true));
-    }
-
-    private void manageFragment(BaseFragment fragment) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fl_main_container, fragment)

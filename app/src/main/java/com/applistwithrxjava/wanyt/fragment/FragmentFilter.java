@@ -1,12 +1,10 @@
 package com.applistwithrxjava.wanyt.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 
 import com.applistwithrxjava.wanyt.Constants;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.orhanobut.logger.Logger;
 
 import rx.Observer;
 import rx.Subscription;
@@ -27,8 +25,6 @@ import rx.functions.Func1;
  */
 public class FragmentFilter extends BaseFragment {
 
-    private final String tag = ".fragment.FragmentFilter";
-    private final String imageUrl = "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/filter.png";
     private FromAdapter adapter;
     private Subscription subscribe;
 
@@ -46,7 +42,6 @@ public class FragmentFilter extends BaseFragment {
                     @Override
                     public Boolean call(AppListBean appListBean) {
                         String name = appListBean.name;
-                        Log.i("app", name);
                         if (name.length() == 4) {
                             return true;
                         } else {
@@ -67,7 +62,6 @@ public class FragmentFilter extends BaseFragment {
 
                     @Override
                     public void onNext(AppListBean appListBean) {
-                        Logger.d(appListBean.name);
                         adapter.addItem(appListBean);
                     }
                 });

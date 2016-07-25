@@ -20,15 +20,14 @@ import rx.schedulers.Schedulers;
  */
 public class FragmentTake extends BaseFragment {
 
-    private final String imageUrl = "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/take.png";
-
-    FromAdapter adapter;
     @Override
     protected void initView() {
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
     }
+
+    FromAdapter adapter;
 
     @Override
     protected void setListView() {

@@ -27,9 +27,6 @@ import rx.schedulers.Schedulers;
  */
 public class FragmentInterval extends BaseFragment {
 
-    private final String tag = ".fragment.FragmentJust";
-    private final String imageUrl = "http://goo.gl/gEgYUd";
-
     @Override
     protected void initView() {
         rvList.setVisibility(View.GONE);

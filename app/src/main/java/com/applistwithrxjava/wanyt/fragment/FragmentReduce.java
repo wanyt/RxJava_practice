@@ -2,9 +2,7 @@ package com.applistwithrxjava.wanyt.fragment;
 
 import android.view.View;
 
-import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.bumptech.glide.Glide;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,9 +22,6 @@ public class FragmentReduce extends BaseFragment {
     protected void initView() {
         rvList.setVisibility(View.GONE);
         tvText.setVisibility(View.VISIBLE);
-        Glide.with(this)
-                .load(R.mipmap.pic_reduce)
-                .into(ivBulletGraph);
     }
 
     @Override

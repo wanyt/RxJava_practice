@@ -2,10 +2,8 @@ package com.applistwithrxjava.wanyt.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 
-import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.bumptech.glide.Glide;
 
 import rx.Observable;
 import rx.Observer;
@@ -28,10 +26,6 @@ public class FragmentZip extends BaseFragment {
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
-
-        Glide.with(this)
-                .load(R.mipmap.pic_zip)
-                .into(ivBulletGraph);
     }
 
     @Override

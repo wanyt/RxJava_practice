@@ -23,6 +23,7 @@ import com.applistwithrxjava.wanyt.R;
 import com.applistwithrxjava.wanyt.RxBus;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
 import com.applistwithrxjava.wanyt.bean.CatalogBean;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,23 +94,17 @@ public abstract class BaseFragment extends Fragment {
         initView();
         setListView();
         getInternalMessage();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         loadImage();
     }
 
     protected void loadImage() {
-
-//        Glide.with(
-
-
-
-
+        int bulletGraphs = catalog.bulletGraphs;
+        if(bulletGraphs > 0){
+            Glide.with(this)
+                    .load(bulletGraphs)
+                    .into(ivBulletGraph);
+        }
     }
-
 
     private void getInternalMessage() {
         subscription = RxBus.getInstance().event(BusEventModel.class)

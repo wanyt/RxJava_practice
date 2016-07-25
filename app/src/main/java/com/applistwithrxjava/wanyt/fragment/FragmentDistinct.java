@@ -24,11 +24,9 @@ public class FragmentDistinct extends BaseFragment {
     FromAdapter adapter;
     @Override
     protected void initView() {
-
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
-
     }
 
     @Override

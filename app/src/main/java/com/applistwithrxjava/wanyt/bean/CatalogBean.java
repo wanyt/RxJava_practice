@@ -1,7 +1,5 @@
 package com.applistwithrxjava.wanyt.bean;
 
-import android.graphics.drawable.Drawable;
-
 import java.io.Serializable;
 
 /**
@@ -16,7 +14,7 @@ public class CatalogBean implements Serializable {
     public String flag;
     public String method;         //方法名称
     public String describe;       //方法描述
-    public Drawable bulletGraphs; //子弹图
+    public int bulletGraphs = 0; //子弹图
     public String fullName;       //方法全称
     public boolean isCheck;       //当前方法是否被选中
 

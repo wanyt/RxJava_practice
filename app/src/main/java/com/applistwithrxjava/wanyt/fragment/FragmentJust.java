@@ -6,7 +6,6 @@ import android.widget.Toast;
 import com.applistwithrxjava.wanyt.Constants;
 import com.applistwithrxjava.wanyt.adapter.FromAdapter;
 import com.applistwithrxjava.wanyt.bean.AppListBean;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -27,24 +26,15 @@ import rx.schedulers.Schedulers;
  */
 public class FragmentJust extends BaseFragment{
 
-    private final String tag = ".fragment.FragmentJust";
-    private final String imageUrl = "http://goo.gl/gEgYUd";
-    private Subscription subscribe;
-
     @Override
     protected void initView() {
-        Glide.with(getActivity())
-                .load(imageUrl)
-                .into(ivBulletGraph);
-        initList();
-    }
-
-    private FromAdapter adapter;
-    private void initList() {
         rvList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         adapter = new FromAdapter(getActivity());
         rvList.setAdapter(adapter);
     }
+
+    private Subscription subscribe;
+    private FromAdapter adapter;
 
     @Override
     protected void setListView() {
